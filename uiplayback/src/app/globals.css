@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ff7b87;
+  --foreground: #ededed;
+  /* --foreground: #171717; */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@font-face {
+  font-family: 'Hatch';
+  src: url('/fonts/Hatch.ttf') format('truetype'); /* or woff2/ttf */
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #3c57c8;
+    --foreground: #d6e4f5;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Hatch', 'Futura', 'Avenir', 'Segoe UI', 'Trebuchet MS', 'Arial', sans-serif;
+}
+
