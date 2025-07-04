@@ -1,36 +1,87 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎬 Uiplayback — VTuber Clip Wall (App Docs)
 
-## Getting Started
+This is the main web application for Uiplayback — a video wall that displays short, timestamped clips from VTuber streams, tagged and reactable.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🧩 Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- 📥 **Clip Upload Page**  
+  Paste a YouTube link, set start/end timestamps, add tags, and upload a preview clip.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- 🧱 **Video Wall**  
+  Display all approved clips in a scrollable layout with thumbnails, tags, and reaction buttons.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- 💬 **Reactions**  
+  Users can react to clips (e.g., 😂, 💀, 🔥, ❤️) and see live counts.
 
-## Learn More
+- 🎲 **Spin for Chaos**  
+  Randomly watch one clip from the entire wall (coming soon).
 
-To learn more about Next.js, take a look at the following resources:
+- 🛡️ **Moderation Workflow**  
+  Admin dashboard to approve or reject submitted clips (planned).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🧪 Local Setup
 
-## Deploy on Vercel
+1. **Install dependencies**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   ```bash
+   pnpm install
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+2. **Add environment variables**
+
+   Create `.env.local` with the following:
+
+   ```
+   NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+   ```
+
+3. **Run dev server**
+
+   ```bash
+   pnpm dev
+   ```
+
+---
+
+## 🗄 Supabase Schema (Simplified)
+
+### `clips`
+
+| Field         | Type      | Description                              |
+|--------------|-----------|------------------------------------------|
+| `id`         | UUID      | Primary key                              |
+| `title`      | Text      | Optional title                           |
+| `video_url`  | Text      | Link to original video                   |
+| `start_time` | Integer   | Start timestamp in seconds               |
+| `end_time`   | Integer   | End timestamp in seconds                 |
+| `tags`       | Text[]    | Tags like ["Shigure", "Chaos"]           |
+| `status`     | Text      | "pending", "approved", or "rejected"     |
+| `created_by` | UUID      | FK to `users` table                      |
+| `created_at` | Timestamp | Auto-generated                           |
+
+### `reactions`
+
+| Field      | Type    | Description               |
+|-----------|---------|---------------------------|
+| `clip_id` | UUID    | FK to `clips.id`          |
+| `emoji`   | Text    | Emoji code (e.g. "😂")     |
+| `count`   | Integer | Number of reactions        |
+
+---
+
+## 📦 Notes
+
+- Storage is optimized by storing only preview clips.
+- Reaction counts are updated using Supabase Row Level Security (RLS).
+- Free-tier friendly and easily extensible.
+
+---
+
+## 🧾 License
+
+MIT © YourName
