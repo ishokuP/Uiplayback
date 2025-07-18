@@ -18,7 +18,13 @@ const Uindow: React.FC<UindowProps> = ({
   return (
     <div
       className="rounded-2xl shadow-lg overflow-hidden flex flex-col"
-      style={{ width, height, backgroundColor: "#ffeeea" }}
+      style={{
+        width,
+        height,
+        backgroundColor: "#ffeeea",
+        maxWidth: "80%",
+        maxHeight: "80%",
+      }}
     >
       {/* Header */}
       <div
@@ -85,8 +91,8 @@ const Uindow: React.FC<UindowProps> = ({
       </div>
 
       {/* Body */}
-      <div className="flex-1 p-4 overflow-auto">
-        {children ?? <p className="text-gray-600"></p>}
+      <div className="flex-1 overflow-hidden p-4">
+        <div className="w-full h-full">{children}</div>
       </div>
     </div>
   );

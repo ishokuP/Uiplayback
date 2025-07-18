@@ -84,4 +84,4 @@ This is the main web application for Uiplayback — a video wall that displays s
 
 ## 🧾 License
 
-MIT © YourName
+MIT © ishokuP
